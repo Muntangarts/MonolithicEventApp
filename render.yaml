@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: event-monolith-app
+    env: node
+    repo: https://github.com/your-repo/event-monolith-app
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: ETHEREAL_USER
+        sync: false
+      - key: ETHEREAL_PASS
+        sync: false

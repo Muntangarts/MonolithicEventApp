@@ -1,0 +1,28 @@
+{
+  "name": "monolithiceventapp",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "bun run src/index.ts",
+    "dev": "bun --watch src/index.ts",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --name init"
+  },
+  "dependencies": {
+    "@elysiajs/swagger": "^1.0.0",
+    "@prisma/client": "^6.18.0",
+    "bcrypt": "^6.0.0",
+    "elysia": "^1.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "nodemailer": "^7.0.10"
+  },
+  "prisma": {
+    "schema": "src/prisma/schema.prisma"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/jsonwebtoken": "^9.0.0",
+    "@types/node": "^20.0.0",
+    "prisma": "^6.18.0",
+    "typescript": "^5.0.0"
+  }
+}
