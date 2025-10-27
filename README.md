@@ -1,0 +1,2 @@
+# MonolithicEventApp
+Web app
