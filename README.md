@@ -5,5 +5,16 @@ A monolithic event management application built with Elysia.js, Prisma, Neon Pos
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-repo/event-monolith-app.git
+   git clone https://github.com/Muntangarts/MonolithicEventApp.git
    cd event-monolith-app
+
+
+---
+
+### Setup Instructions to Verify
+
+2. **Verify Dependencies**
+   - Ensure `package.json` matches the above.
+   - Install dependencies:
+     ```bash
+     bun install

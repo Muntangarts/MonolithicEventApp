@@ -2,7 +2,7 @@ services:
   - type: web
     name: event-monolith-app
     env: node
-    repo: https://github.com/your-repo/event-monolith-app
+    repo: https://github.com/Muntangarts/MonolithicEventApp.git
     buildCommand: npm install
     startCommand: npm start
     envVars:

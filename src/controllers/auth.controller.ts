@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import {hash, compare} from 'bcrypt';
+import { hash, compare } from 'bcrypt';
 import { generateToken, verifyToken, generateRefreshToken } from '../services/jwt.service';
 import { sendEmail } from '../services/email.service';
 import { Context } from 'elysia';
@@ -13,7 +13,7 @@ export class AuthController {
 
   async signupUser({ body, set }: Context & { body: { email: string; password: string } }) {
     const { email, password } = body;
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await hash(password, 10);
     const user = await this.prisma.user.create({
       data: {
         email,
@@ -28,7 +28,7 @@ export class AuthController {
 
   async signupOrganizer({ body, set }: Context & { body: { email: string; password: string } }) {
     const { email, password } = body;
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await hash(password, 10);
     const user = await this.prisma.user.create({
       data: {
         email,
@@ -43,7 +43,7 @@ export class AuthController {
 
   async signupAdmin({ body, set }: Context & { body: { email: string; password: string } }) {
     const { email, password } = body;
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await hash(password, 10);
     const user = await this.prisma.user.create({
       data: {
         email,
@@ -59,7 +59,7 @@ export class AuthController {
   async loginUser({ body, set }: Context & { body: { email: string; password: string } }) {
     const { email, password } = body;
     const user = await this.prisma.user.findUnique({ where: { email } });
-    if (!user || !(await bcrypt.compare(password, user.password))) {
+    if (!user || !(await compare(password, user.password))) {
       set.status = 401;
       throw new Error('Invalid credentials');
     }
@@ -75,7 +75,7 @@ export class AuthController {
   async loginOrganizer({ body, set }: Context & { body: { email: string; password: string } }) {
     const { email, password } = body;
     const user = await this.prisma.user.findUnique({ where: { email } });
-    if (!user || !(await bcrypt.compare(password, user.password))) {
+    if (!user || !(await compare(password, user.password))) {
       set.status = 401;
       throw new Error('Invalid credentials');
     }
@@ -89,7 +89,6 @@ export class AuthController {
   }
 
   async logout({ set }: Context) {
-    // Invalidate token (client-side clearing, server stateless)
     set.status = 200;
     return { message: 'Logged out successfully' };
   }
@@ -111,7 +110,7 @@ export class AuthController {
     const { token, newPassword } = body;
     try {
       const payload = verifyToken(token);
-      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      const hashedPassword = await hash(newPassword, 10);
       await this.prisma.user.update({
         where: { id: payload.userId },
         data: { password: hashedPassword },
